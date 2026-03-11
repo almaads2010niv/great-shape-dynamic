@@ -1,0 +1,117 @@
+PROJECT STORY — Great Shape Dynamic Landing Page
+=================================================
+Chronological build log of the multi-path dynamic landing page.
+
+SESSION 1 (March 11, 2026 — Part 1)
+------------------------------------
+Context: Niv from Alma Ads agency wants a new dynamic landing page for
+Country Club Great Shape Nesher. The existing page (great-shape-openday)
+generated 155+ leads but targets only one audience. The new page will have
+3 emotional paths that completely change the experience.
+
+1. PLANNING PHASE
+   - Niv provided a massive mega-prompt with full vision
+   - Claude analyzed the existing codebase (30+ files)
+   - Identified critical issues: Tailwind v4 @theme inline conflict,
+     200+ hardcoded hex values, expired useNightMode hook, case-sensitive
+     sauna.JPG, dead code files
+   - Created comprehensive implementation plan
+   - Plan approved by Niv
+
+2. INFRASTRUCTURE (via browser automation)
+   - Created GitHub repo: almaads2010niv/great-shape-dynamic
+   - Created Supabase project: great-shape-dynamic (EU West)
+   - Ran SQL schema with path field added to leads table
+   - Retrieved Supabase credentials (URL + anon key)
+   - Note: Supabase API keys page had moved to settings/api-keys/legacy
+
+3. PROJECT SCAFFOLD
+   - Cloned repo locally
+   - Created Next.js 16.1.6 project with TypeScript
+   - Installed dependencies (framer-motion, supabase-js, lucide-react, etc.)
+   - Copied images from original repo (6 images + logo)
+   - Downloaded Fluent Emoji 3D PNGs for path selector
+
+4. FOUNDATION FILES
+   - globals.css — Theme CSS variables for 3 paths + all animations
+   - ThemeProvider.tsx — React Context with URL param routing
+   - useTheme.ts — Hook combining context + content
+   - themes.ts — Massive config with all Hebrew content per path
+   - layout.tsx — Heebo/Assistant fonts, ThemeProvider wrapper
+   - .env.local — Supabase credentials
+   - supabase.ts — Client setup
+
+
+SESSION 2 (March 11, 2026 — Part 2)
+------------------------------------
+Continued from where Session 1 left off.
+
+5. NEW COMPONENTS
+   - PathSelector.tsx — Full-screen entry with 3 animated cards
+   - PageContent.tsx — AnimatePresence wrapper for path transitions
+
+6. COMPONENT PORTING (parallelized with 3 background agents)
+   Agent 1: Hero.tsx + StickyBar.tsx
+   Agent 2: VossBlock.tsx + GuiltRelease.tsx + Testimonials.tsx
+   Agent 3: CheckoutForm.tsx + FacilitiesGallery.tsx
+
+7. REMAINING COMPONENTS (manual porting)
+   - Footer, AccessibilityWidget, CookieConsent, TermsModal
+   - Countdown (refactored: accepts label prop instead of nightMode)
+   - SpotsCounter, SocialProof, VideoSection, HowItWorks
+   - NotificationQueue, ExitIntent (sends path with lead)
+   - PricingTable, SavingsCalculator, ComparisonTable (conditional render)
+   - RiskReversal
+
+8. API ROUTES
+   - checkout/route.ts — Added path field to lead insert
+   - checkout/status/route.ts — Unchanged from original
+   - spots/route.ts — Removed expired night mode logic, fixed totalSpots=50
+   - leads/recent/route.ts — Unchanged from original
+
+
+SESSION 3 (March 11, 2026 — Part 3)
+------------------------------------
+Final assembly, testing, and deployment.
+
+9. PAGE COMPOSITION
+   - Created page.tsx — wires PathSelector + PageContent + all 24 components
+   - Build succeeded with zero TypeScript errors (54 files, 10,505 lines)
+
+10. LOCAL TESTING
+    - Dev server on port 3002
+    - PathSelector: all 3 cards rendering with correct emojis and text
+    - Routine path: Hero with gym bg, red CTA, VossBlock, GuiltRelease,
+      FacilitiesGallery, all sections visible. 13 sections + footer.
+    - Relax path: Teal colors, sauna background, warm brown bg,
+      correct Hebrew copy. Fewer sections (no video, pricing, calculator).
+    - Athlete path: Pure black bg, red/white accent, gym background,
+      correct aggressive copy. 11 sections.
+    - URL param routing (?path=X) working for all 3 paths
+
+11. GIT & DEPLOYMENT
+    - Configured git: alma.ads2010@gmail.com (per Niv's instruction)
+    - Added .env.local to .gitignore
+    - Committed and pushed to GitHub
+    - Created Vercel project via browser automation
+    - Set environment variables (Supabase URL + Anon Key)
+    - Deployed successfully
+
+12. PRODUCTION VERIFICATION
+    - https://great-shape-dynamic.vercel.app — PathSelector loading
+    - ?path=relax — Teal StickyBar, spots counter, correct content
+    - All verified working in production
+
+13. DOCUMENTATION
+    - Created MEMORY.md, PROJECT_STORY.txt, NIV_PROMPTS_IDEAS.md
+
+
+STATS
+-----
+- Total files: 54
+- Total lines of code: 10,505
+- Components: 24
+- API routes: 4
+- Theme variants: 3
+- Hebrew content blocks: ~50 unique text blocks across paths
+- Sessions: 3 (continuous build)

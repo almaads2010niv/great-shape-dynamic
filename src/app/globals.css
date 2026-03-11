@@ -1,0 +1,241 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-heebo: "Heebo", sans-serif;
+  --font-assistant: "Assistant", sans-serif;
+}
+
+/* ========================================
+   THEME SYSTEM — CSS Custom Properties
+   Colors are NOT in @theme inline (Tailwind v4 conflict).
+   They live as raw CSS vars, switched via [data-theme].
+   ======================================== */
+
+:root {
+  --theme-primary: #E60000;
+  --theme-primary-dark: #B30000;
+  --theme-primary-light: #FF1A1A;
+  --theme-bg: #0A0A0A;
+  --theme-bg-card: #1A1A1A;
+  --theme-bg-card-alt: #111111;
+  --theme-accent: #D4A853;
+  --theme-text: #FAFAFA;
+  --theme-text-muted: #999999;
+  --theme-border: rgba(255, 255, 255, 0.1);
+  --theme-radius: 8px;
+  --theme-heading-weight: 900;
+  --theme-body-weight: 400;
+  --theme-letter-spacing: 0em;
+  --theme-anim-duration: 0.5s;
+  --theme-noise-opacity: 0.03;
+}
+
+/* --- ROUTINE: Sharp, confident, "deal" feel --- */
+[data-theme="routine"] {
+  --theme-primary: #E60000;
+  --theme-primary-dark: #B30000;
+  --theme-primary-light: #FF1A1A;
+  --theme-bg: #0A0A0A;
+  --theme-bg-card: #1A1A1A;
+  --theme-bg-card-alt: #111111;
+  --theme-accent: #D4A853;
+  --theme-text: #FAFAFA;
+  --theme-text-muted: #999999;
+  --theme-border: rgba(255, 255, 255, 0.1);
+  --theme-radius: 8px;
+  --theme-heading-weight: 900;
+  --theme-body-weight: 400;
+  --theme-letter-spacing: 0em;
+  --theme-anim-duration: 0.5s;
+  --theme-noise-opacity: 0.03;
+}
+
+/* --- RELAX: Soft, organic, warm retreat --- */
+[data-theme="relax"] {
+  --theme-primary: #2A9D8F;
+  --theme-primary-dark: #1F7A6F;
+  --theme-primary-light: #40B5A8;
+  --theme-bg: #1A1512;
+  --theme-bg-card: #231E19;
+  --theme-bg-card-alt: #1E1914;
+  --theme-accent: #E9C46A;
+  --theme-text: #FAF5EF;
+  --theme-text-muted: #B8A898;
+  --theme-border: rgba(233, 196, 106, 0.15);
+  --theme-radius: 20px;
+  --theme-heading-weight: 400;
+  --theme-body-weight: 300;
+  --theme-letter-spacing: 0.05em;
+  --theme-anim-duration: 0.9s;
+  --theme-noise-opacity: 0.015;
+}
+
+/* --- ATHLETE: Raw, industrial, high contrast --- */
+[data-theme="athlete"] {
+  --theme-primary: #FF2D2D;
+  --theme-primary-dark: #CC0000;
+  --theme-primary-light: #FF5555;
+  --theme-bg: #000000;
+  --theme-bg-card: #0A0A0A;
+  --theme-bg-card-alt: #050505;
+  --theme-accent: #FFFFFF;
+  --theme-text: #FFFFFF;
+  --theme-text-muted: #888888;
+  --theme-border: rgba(255, 255, 255, 0.15);
+  --theme-radius: 2px;
+  --theme-heading-weight: 900;
+  --theme-body-weight: 500;
+  --theme-letter-spacing: -0.02em;
+  --theme-anim-duration: 0.3s;
+  --theme-noise-opacity: 0;
+}
+
+/* Smooth theme transition */
+[data-theme] {
+  transition:
+    background-color 0.6s ease,
+    color 0.4s ease;
+}
+
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--theme-bg);
+  color: var(--theme-text);
+  font-family: var(--font-assistant), sans-serif;
+  font-weight: var(--theme-body-weight);
+  letter-spacing: var(--theme-letter-spacing);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(var(--theme-primary-rgb, 230, 0, 0), 0.4),
+                0 0 40px rgba(var(--theme-primary-rgb, 230, 0, 0), 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(var(--theme-primary-rgb, 230, 0, 0), 0.6),
+                0 0 60px rgba(var(--theme-primary-rgb, 230, 0, 0), 0.3);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes badge-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px var(--theme-primary),
+                0 0 30px color-mix(in srgb, var(--theme-primary) 40%, transparent),
+                0 0 60px color-mix(in srgb, var(--theme-primary) 20%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 25px var(--theme-primary),
+                0 0 50px color-mix(in srgb, var(--theme-primary) 50%, transparent),
+                0 0 80px color-mix(in srgb, var(--theme-primary) 30%, transparent);
+  }
+}
+
+@keyframes slide-in-left {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slide-out-left {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes scroll-hint {
+  0%, 100% { transform: translateX(0); opacity: 0.5; }
+  50% { transform: translateX(-10px); opacity: 1; }
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+.cta-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+.text-gradient-primary {
+  background: linear-gradient(135deg, var(--theme-primary), var(--theme-primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.card-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px color-mix(in srgb, var(--theme-primary) 15%, transparent);
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.counter-number {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.march-badge-glow {
+  animation: badge-glow 2s infinite;
+}
+
+/* ========================================
+   NOISE OVERLAY
+   ======================================== */
+
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: var(--theme-noise-opacity);
+}
+
+/* ========================================
+   ACCESSIBILITY OVERRIDES
+   ======================================== */
+
+.accessibility-high-contrast * {
+  border-color: #FFFFFF !important;
+  color: #FFFFFF !important;
+}
+
+.accessibility-link-highlight a {
+  text-decoration: underline !important;
+  text-underline-offset: 4px !important;
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -31,9 +31,9 @@ export default function Hero() {
       <div className="relative z-10 max-w-5xl mx-auto px-6 py-32 text-center">
         {/* Logo */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="mb-8"
         >
           <Image
@@ -41,22 +41,20 @@ export default function Hero() {
             alt="Great Shape"
             width={180}
             height={180}
-            className="mx-auto drop-shadow-2xl"
+            className="mx-auto"
           />
         </motion.div>
 
         {/* Badge */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.5, rotateX: 90 }}
-          animate={{ opacity: 1, scale: 1, rotateX: 0 }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{
-            duration: 0.8,
-            delay: 0.2,
-            type: "spring",
-            stiffness: 150,
-            damping: 15,
+            duration: 0.4,
+            delay: 0.1,
+            ease: "easeOut",
           }}
-          className="mb-6 perspective-[1000px]"
+          className="mb-6"
         >
           <div className="inline-block relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-[var(--theme-primary)] via-[var(--theme-primary-light)] to-[var(--theme-primary)] rounded-2xl blur-lg opacity-60 group-hover:opacity-80 transition-opacity" />
@@ -106,7 +104,7 @@ export default function Hero() {
               )}
 
               <div className="relative z-10">
-                <span className="font-[family-name:var(--font-heebo)] font-black text-2xl sm:text-3xl text-white drop-shadow-lg">
+                <span className="font-[family-name:var(--font-heebo)] font-black text-2xl sm:text-3xl text-white">
                   {content.hero.badge}
                 </span>
               </div>
@@ -117,9 +115,9 @@ export default function Hero() {
         {/* Info badges */}
         {content.hero.infoBadges.length > 0 && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.35, delay: 0.15 }}
             className="flex flex-wrap justify-center gap-3 mb-8"
           >
             {content.hero.infoBadges.map((badge, i) => (
@@ -135,9 +133,9 @@ export default function Hero() {
 
         {/* Headline */}
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
           className="font-[family-name:var(--font-heebo)] font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white mb-4 leading-tight"
           style={{ fontWeight: "var(--theme-heading-weight)" }}
         >
@@ -150,9 +148,9 @@ export default function Hero() {
 
         {/* Sub-headline */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
+          transition={{ duration: 0.35, delay: 0.25 }}
           className="font-[family-name:var(--font-heebo)] text-xl sm:text-2xl text-white/80 mb-4"
         >
           {content.hero.subHeadline}
@@ -160,9 +158,9 @@ export default function Hero() {
 
         {/* Body copy */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          transition={{ duration: 0.35, delay: 0.3 }}
           className="font-[family-name:var(--font-assistant)] text-base sm:text-lg text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed"
         >
           {content.hero.bodyCopy}
@@ -170,9 +168,9 @@ export default function Hero() {
 
         {/* Countdown */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.9 }}
+          transition={{ duration: 0.35, delay: 0.35 }}
           className="mb-10"
         >
           <Countdown
@@ -183,15 +181,15 @@ export default function Hero() {
 
         {/* CTA Button */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.0 }}
+          transition={{ duration: 0.35, delay: 0.4 }}
         >
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={scrollToCheckout}
-            className="bg-[var(--theme-primary)] hover:bg-[var(--theme-primary-light)] text-white font-[family-name:var(--font-heebo)] font-bold text-lg sm:text-xl px-10 py-4 rounded-[var(--theme-radius)] transition-all cursor-pointer cta-glow"
+            className="bg-[var(--theme-primary)] hover:bg-[var(--theme-primary-light)] text-white font-[family-name:var(--font-heebo)] font-bold text-lg sm:text-xl px-10 py-4 rounded-[var(--theme-radius)] transition-colors duration-200 cursor-pointer cta-glow"
           >
             {content.hero.ctaText}
           </motion.button>
@@ -201,7 +199,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
+          transition={{ delay: 0.6 }}
           className="mt-16"
         >
           <motion.div

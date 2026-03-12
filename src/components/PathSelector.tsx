@@ -54,7 +54,7 @@ export default function PathSelector() {
     setExiting(true);
     setTimeout(() => {
       setActivePath(pathId);
-    }, 600);
+    }, 350);
   };
 
   return (
@@ -62,8 +62,8 @@ export default function PathSelector() {
       {!exiting && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, y: -30 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
           className="min-h-screen relative flex flex-col items-center justify-center overflow-hidden"
           style={{ backgroundColor: "#000" }}
         >
@@ -124,9 +124,9 @@ export default function PathSelector() {
           <div className="relative z-10 w-full max-w-4xl mx-auto px-4 py-8 flex flex-col items-center">
             {/* Logo */}
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.35 }}
               className="mb-6"
             >
               <Image
@@ -134,18 +134,18 @@ export default function PathSelector() {
                 alt="קאנטרי גרייט שייפ נשר"
                 width={200}
                 height={66}
-                className="mx-auto drop-shadow-2xl"
+                className="mx-auto"
                 priority
               />
             </motion.div>
 
             {/* Question */}
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-2xl md:text-4xl font-bold text-white text-center mb-2 drop-shadow-lg"
-              style={{ fontFamily: "var(--font-heebo)" }}
+              transition={{ duration: 0.35, delay: 0.1 }}
+              className="text-2xl md:text-4xl font-bold text-white text-center mb-2"
+              style={{ fontFamily: "var(--font-heebo)", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
             >
               מה הכי מתחבר אליך עכשיו?
             </motion.h1>
@@ -153,9 +153,9 @@ export default function PathSelector() {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-sm md:text-base text-center mb-10 drop-shadow-md"
-              style={{ color: "rgba(255,255,255,0.7)" }}
+              transition={{ duration: 0.3, delay: 0.15 }}
+              className="text-sm md:text-base text-center mb-10"
+              style={{ color: "rgba(255,255,255,0.7)", textShadow: "0 1px 4px rgba(0,0,0,0.5)" }}
             >
               בחר את המסלול שלך — הדף כולו ישתנה בשבילך
             </motion.p>
@@ -165,24 +165,25 @@ export default function PathSelector() {
               {paths.map((path, index) => (
                 <motion.button
                   key={path.id}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{
-                    duration: 0.5,
-                    delay: 0.3 + index * 0.12,
+                    duration: 0.3,
+                    delay: 0.15 + index * 0.06,
                     ease: "easeOut",
                   }}
                   whileHover={{
-                    scale: 1.04,
+                    scale: 1.03,
                     borderColor: path.color,
-                    boxShadow: `0 0 35px ${path.glowColor}`,
+                    boxShadow: `0 0 25px ${path.glowColor}`,
                   }}
                   whileTap={{ scale: 0.97 }}
                   onClick={() => handleSelect(path.id)}
                   className={`
                     flex-1 flex flex-col items-center gap-0
-                    rounded-2xl cursor-pointer transition-all duration-300
+                    rounded-2xl cursor-pointer
                     border-2 text-center overflow-hidden
+                    transition-[transform,opacity] duration-200
                     ${
                       selected === path.id
                         ? "scale-105 z-10"
@@ -232,7 +233,7 @@ export default function PathSelector() {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.4 }}
-              transition={{ duration: 0.5, delay: 1 }}
+              transition={{ duration: 0.3, delay: 0.4 }}
               className="mt-8 text-xs"
               style={{ color: "rgba(255,255,255,0.4)" }}
             >

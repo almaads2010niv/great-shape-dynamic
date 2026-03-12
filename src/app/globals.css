@@ -106,7 +106,7 @@ html {
 }
 
 body {
-  background-color: var(--theme-bg);
+  background-color: #000;
   color: var(--theme-text);
   font-family: var(--font-assistant), sans-serif;
   font-weight: var(--theme-body-weight);

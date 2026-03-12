@@ -44,7 +44,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       <div
         data-theme={activePath || "routine"}
         className="min-h-screen"
-        style={{ backgroundColor: "var(--theme-bg)", color: "var(--theme-text)" }}
+        style={{
+          backgroundColor: hasChosen ? "var(--theme-bg)" : "transparent",
+          color: "var(--theme-text)",
+        }}
       >
         {children}
       </div>

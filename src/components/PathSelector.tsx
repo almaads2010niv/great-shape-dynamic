@@ -8,35 +8,39 @@ import type { ThemePath } from "@/components/ThemeProvider";
 
 const paths: {
   id: ThemePath;
-  emoji: string;
+  image: string;
   title: string;
   subtitle: string;
   color: string;
   borderColor: string;
+  glowColor: string;
 }[] = [
   {
     id: "routine",
-    emoji: "/emoji/routine.png",
+    image: "/images/gym1.jpg",
     title: "רוצה לחזור לשגרה",
     subtitle: "חיכית לתירוץ מספיק טוב — הנה הוא",
     color: "#E60000",
     borderColor: "rgba(230, 0, 0, 0.4)",
+    glowColor: "rgba(230, 0, 0, 0.3)",
   },
   {
     id: "relax",
-    emoji: "/emoji/relax.png",
+    image: "/images/sauna.jpg",
     title: "צריך לנשום רגע",
     subtitle: "בריכה, סאונה, ג׳קוזי — הכל מחכה לך",
     color: "#2A9D8F",
     borderColor: "rgba(42, 157, 143, 0.4)",
+    glowColor: "rgba(42, 157, 143, 0.3)",
   },
   {
     id: "athlete",
-    emoji: "/emoji/athlete.png",
+    image: "/images/pool-indoor.jpg",
     title: "מחפש מקום להתאמן ברצינות",
     subtitle: "ציוד מקצועי, בריכה אולימפית, בלי פשרות",
     color: "#FF2D2D",
     borderColor: "rgba(255, 45, 45, 0.4)",
+    glowColor: "rgba(255, 45, 45, 0.3)",
   },
 ];
 
@@ -48,7 +52,6 @@ export default function PathSelector() {
   const handleSelect = (pathId: ThemePath) => {
     setSelected(pathId);
     setExiting(true);
-    // Wait for animation before actually setting
     setTimeout(() => {
       setActivePath(pathId);
     }, 600);
@@ -61,120 +64,181 @@ export default function PathSelector() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, y: -30 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="min-h-screen flex flex-col items-center justify-center px-4 py-8"
-          style={{ backgroundColor: "#0A0A0A" }}
+          className="min-h-screen relative flex flex-col items-center justify-center overflow-hidden"
+          style={{ backgroundColor: "#000" }}
         >
-          {/* Logo */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-8"
-          >
-            <Image
-              src="/images/logo.png"
-              alt="קאנטרי גרייט שייפ נשר"
-              width={180}
-              height={60}
-              className="mx-auto"
-              priority
-            />
-          </motion.div>
+          {/* === Welcome Background: Single image per diagonal section using CSS === */}
 
-          {/* Question */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-2xl md:text-4xl font-bold text-white text-center mb-2"
-            style={{ fontFamily: "var(--font-heebo)" }}
-          >
-            מה הכי מתחבר אליך עכשיו?
-          </motion.h1>
+          {/* Photo 1 — Gym */}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: "url(/images/gym1.jpg)",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              clipPath: "polygon(0 0, 40% 0, 25% 100%, 0 100%)",
+            }}
+          />
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-sm md:text-base text-center mb-10"
-            style={{ color: "#999" }}
-          >
-            בחר את המסלול שלך — הדף כולו ישתנה בשבילך
-          </motion.p>
+          {/* Photo 2 — Sauna */}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: "url(/images/sauna.jpg)",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              clipPath: "polygon(40% 0, 73% 0, 58% 100%, 25% 100%)",
+            }}
+          />
 
-          {/* Path Cards */}
-          <div className="flex flex-col md:flex-row gap-4 md:gap-6 w-full max-w-3xl">
-            {paths.map((path, index) => (
-              <motion.button
-                key={path.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.5,
-                  delay: 0.3 + index * 0.12,
-                  ease: "easeOut",
-                }}
-                whileHover={{
-                  scale: 1.04,
-                  borderColor: path.color,
-                  boxShadow: `0 0 30px ${path.borderColor}`,
-                }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => handleSelect(path.id)}
-                className={`
-                  flex-1 flex flex-col items-center gap-3 p-6 md:p-8
-                  rounded-2xl cursor-pointer transition-all duration-300
-                  border-2 text-center
-                  ${
-                    selected === path.id
-                      ? "scale-105 z-10"
-                      : selected
-                        ? "opacity-30 scale-95"
-                        : ""
-                  }
-                `}
-                style={{
-                  backgroundColor: "#1A1A1A",
-                  borderColor:
-                    selected === path.id
-                      ? path.color
-                      : "rgba(255,255,255,0.08)",
-                }}
-              >
-                <div className="w-14 h-14 md:w-16 md:h-16 relative">
-                  <Image
-                    src={path.emoji}
-                    alt={path.title}
-                    fill
-                    className="object-contain"
-                    sizes="64px"
-                  />
-                </div>
+          {/* Photo 3 — Pool */}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: "url(/images/pool-indoor.jpg)",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              clipPath: "polygon(73% 0, 100% 0, 100% 100%, 58% 100%)",
+            }}
+          />
 
-                <h3
-                  className="text-lg md:text-xl font-bold text-white"
-                  style={{ fontFamily: "var(--font-heebo)" }}
+          {/* Diagonal line accents */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(100deg, transparent 24.5%, rgba(255,255,255,0.12) 24.5%, rgba(255,255,255,0.12) 25.5%, transparent 25.5%, transparent 57.5%, rgba(255,255,255,0.12) 57.5%, rgba(255,255,255,0.12) 58.5%, transparent 58.5%)",
+            }}
+          />
+
+          {/* Fade overlay — like original Hero */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.2) 35%, rgba(0,0,0,0.2) 55%, rgba(0,0,0,0.7) 100%)",
+            }}
+          />
+
+          {/* === Content === */}
+          <div className="relative z-10 w-full max-w-4xl mx-auto px-4 py-8 flex flex-col items-center">
+            {/* Logo */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-6"
+            >
+              <Image
+                src="/images/logo.png"
+                alt="קאנטרי גרייט שייפ נשר"
+                width={200}
+                height={66}
+                className="mx-auto drop-shadow-2xl"
+                priority
+              />
+            </motion.div>
+
+            {/* Question */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-2xl md:text-4xl font-bold text-white text-center mb-2 drop-shadow-lg"
+              style={{ fontFamily: "var(--font-heebo)" }}
+            >
+              מה הכי מתחבר אליך עכשיו?
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="text-sm md:text-base text-center mb-10 drop-shadow-md"
+              style={{ color: "rgba(255,255,255,0.7)" }}
+            >
+              בחר את המסלול שלך — הדף כולו ישתנה בשבילך
+            </motion.p>
+
+            {/* === Path Cards with Photos === */}
+            <div className="flex flex-col md:flex-row gap-4 md:gap-5 w-full">
+              {paths.map((path, index) => (
+                <motion.button
+                  key={path.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.3 + index * 0.12,
+                    ease: "easeOut",
+                  }}
+                  whileHover={{
+                    scale: 1.04,
+                    borderColor: path.color,
+                    boxShadow: `0 0 35px ${path.glowColor}`,
+                  }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => handleSelect(path.id)}
+                  className={`
+                    flex-1 flex flex-col items-center gap-0
+                    rounded-2xl cursor-pointer transition-all duration-300
+                    border-2 text-center overflow-hidden
+                    ${
+                      selected === path.id
+                        ? "scale-105 z-10"
+                        : selected
+                          ? "opacity-30 scale-95"
+                          : ""
+                    }
+                  `}
+                  style={{
+                    backgroundColor: "#1A1A1A",
+                    borderColor:
+                      selected === path.id
+                        ? path.color
+                        : "rgba(255,255,255,0.1)",
+                  }}
                 >
-                  {path.title}
-                </h3>
+                  {/* Card Photo */}
+                  <div className="relative w-full h-32 md:h-40 overflow-hidden">
+                    <Image
+                      src={path.image}
+                      alt={path.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                    {/* Photo gradient fade to card bg */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#1A1A1A]" />
+                  </div>
 
-                <p className="text-sm" style={{ color: "#999" }}>
-                  {path.subtitle}
-                </p>
-              </motion.button>
-            ))}
+                  {/* Card Text */}
+                  <div className="px-4 pb-5 pt-2 flex flex-col items-center gap-2">
+                    <h3
+                      className="text-lg md:text-xl font-bold text-white leading-tight"
+                      style={{ fontFamily: "var(--font-heebo)" }}
+                    >
+                      {path.title}
+                    </h3>
+                    <p className="text-sm leading-snug" style={{ color: "#999" }}>
+                      {path.subtitle}
+                    </p>
+                  </div>
+                </motion.button>
+              ))}
+            </div>
+
+            {/* Bottom hint */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.4 }}
+              transition={{ duration: 0.5, delay: 1 }}
+              className="mt-8 text-xs"
+              style={{ color: "rgba(255,255,255,0.4)" }}
+            >
+              אפשר לשנות בכל רגע
+            </motion.p>
           </div>
-
-          {/* Subtle bottom hint */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.4 }}
-            transition={{ duration: 0.5, delay: 1 }}
-            className="mt-8 text-xs"
-            style={{ color: "#666" }}
-          >
-            אפשר לשנות בכל רגע
-          </motion.p>
         </motion.div>
       )}
     </AnimatePresence>

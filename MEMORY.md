@@ -55,7 +55,7 @@ src/
       spots/route.ts          — Remaining spots (total=50)
       leads/recent/route.ts   — Recent leads for FOMO
   components/ (24 total)
-    PathSelector.tsx     — Full-screen entry, 3 animated cards
+    PathSelector.tsx     — Full-screen entry, 3 photo cards + diagonal composite background
     PageContent.tsx      — AnimatePresence wrapper
     ThemeProvider.tsx     — React Context + data-theme
     Hero.tsx             — 3 variants (headline, bg image, badges)
@@ -101,6 +101,10 @@ RLS enabled with anon insert/select/update policies.
 4. **sauna.JPG renamed** — Linux/Vercel case-sensitive. Renamed to sauna.jpg
 5. **Payment URL unchanged** — packageId=19 for all paths (same membership)
 6. **`id="checkout"` always renders** — Required for scrollIntoView from Hero, StickyBar, etc.
+7. **PathSelector backgrounds use CSS `background-image`** — Not Next.js `<Image>`, because the diagonal `clipPath` compositing requires plain CSS divs. Three absolute-positioned divs with `clipPath: polygon(...)` create the diagonal photo splits.
+8. **ThemeProvider background conditional** — `backgroundColor: hasChosen ? "var(--theme-bg)" : "transparent"` — transparent before path selection so PathSelector background photos show through.
+9. **Images compressed via sharp** — All JPGs resized to max 1600px wide, mozjpeg quality 75. Total reduced from 14MB to 1.3MB (~200KB each).
+10. **Fast animations** — All Framer Motion delays kept under 0.4s. No `transition-all` (replaced with `transition-[transform,opacity]`). No CSS `drop-shadow` filters (replaced with `textShadow` where needed).
 
 ## Environment Variables
 - `NEXT_PUBLIC_SUPABASE_URL` — Supabase project URL

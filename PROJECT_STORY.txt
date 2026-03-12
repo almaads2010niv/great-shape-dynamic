@@ -106,12 +106,56 @@ Final assembly, testing, and deployment.
     - Created MEMORY.md, PROJECT_STORY.txt, NIV_PROMPTS_IDEAS.md
 
 
+SESSION 4 (March 12, 2026)
+--------------------------
+Visual polish and performance optimization.
+
+14. PATHSELECTOR VISUAL REDESIGN
+    - Niv requested: "במקום האימוגים שים את התמונות... ברקע הראשי חייב
+      להיות תמונה ב FADE... תשלב את כל התמונות עם הפרדה בקו אלכסוני"
+    - Replaced Fluent Emoji 3D PNGs with real facility photos in cards
+    - Added diagonal composite welcome background: 3 photos split by
+      elegant diagonal lines using CSS clipPath polygon()
+    - Fade overlay gradient like original repo's Hero section
+    - Cards now show gym1.jpg, sauna.jpg, pool-indoor.jpg with
+      gradient fade to card background
+
+15. BACKGROUND VISIBILITY BUG
+    - Photos were invisible despite loading correctly
+    - Root cause: ThemeProvider's wrapper div had solid backgroundColor
+      "var(--theme-bg)" (#0A0A0A) covering all background images
+    - Fix: Made ThemeProvider bg conditional on hasChosen state
+      (transparent before path selection, theme-bg after)
+    - Changed body background from var(--theme-bg) to plain #000
+    - Switched from Next.js Image to CSS background-image for
+      diagonal backgrounds (clipPath requires plain CSS divs)
+
+16. PERFORMANCE OPTIMIZATION
+    - Problem: Page loaded very slowly, effects sluggish, barely responsive
+    - Root cause: Images were 2-3MB each (14MB total!)
+    - Compressed all 6 JPGs via sharp (mozjpeg quality 75, max 1600px):
+      gym1: 2.4MB→176KB, sauna: 2.9MB→200KB, pool-indoor: 1.9MB→301KB,
+      gym2: 2.2MB→253KB, pool-outdoor: 2.3MB→197KB, studio: 1.8MB→158KB
+    - Total: 14MB → 1.3MB (90% reduction)
+    - PathSelector animations: delays halved (0.6s→0.3s), exit 0.5s→0.3s,
+      selection timeout 600ms→350ms
+    - Hero animations: stagger reduced from 0-1.5s to 0-0.6s,
+      removed heavy spring animation with rotateX:90
+    - Replaced transition-all with transition-[transform,opacity]
+    - Removed expensive drop-shadow CSS filters (replaced with textShadow)
+
+17. PUSHED TO PRODUCTION
+    - All changes committed and pushed to GitHub
+    - Vercel auto-deployed successfully
+
+
 STATS
 -----
 - Total files: 54
-- Total lines of code: 10,505
+- Total lines of code: ~10,500
 - Components: 24
 - API routes: 4
 - Theme variants: 3
 - Hebrew content blocks: ~50 unique text blocks across paths
-- Sessions: 3 (continuous build)
+- Total image size: 1.3MB (compressed from 14MB)
+- Sessions: 4

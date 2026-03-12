@@ -63,7 +63,7 @@ Every component from the original repo was:
 5. Conditional rendering added where needed (showSections flags)
 
 ### New Components Created
-- **PathSelector** — Full-screen entry with 3 animated cards + Fluent Emoji 3D
+- **PathSelector** — Full-screen entry with 3 photo cards + diagonal composite background
 - **PageContent** — AnimatePresence wrapper for smooth path transitions
 
 ### Critical Fixes Applied
@@ -72,11 +72,36 @@ Every component from the original repo was:
 3. useNightMode removed (expired Feb 25, 2026)
 4. sauna.JPG renamed to sauna.jpg (case sensitivity)
 5. Dead code not copied (FomoNotifications.tsx, ActiveViewers.tsx)
+6. ThemeProvider background blocking PathSelector photos — made conditional
+7. Images compressed from 14MB to 1.3MB (sharp, mozjpeg quality 75)
 
 ### API Routes
 - Added `path` field to checkout route (tracks which path generated the lead)
 - Removed expired night mode logic from spots route
 - All routes use new Supabase project
+
+## Session 4 — Visual Polish Request
+
+### Niv's Request (March 12, 2026)
+> "במקוום האימוגים בדף הראשי שים את התמונות ששמתי בתיקיית IMAGES
+> שמסומנות בתמונה הזאת. ברקע הראשי חייב להיות תמונה ב FADE כמו
+> בפרויקט של הריפו מגיטהאב שנתתי לך לראות. אז אתה תשלב את כל
+> התמונות עם הפרדה בקו אלכסוני אלגנטי לתמונת WELCOME מעל הקוביות."
+
+### What Claude Did
+- Replaced emoji PNGs with real facility photos (gym1, sauna, pool-indoor)
+- Created diagonal composite welcome background using CSS clipPath
+- Added fade overlay gradient matching the original repo's Hero
+- Cards show facility photos with gradient fade to card background
+
+### Niv's Performance Feedback
+> "שברת שם דברים, הוא עולה מאוד לאט, אפקטים מאוד איטיים ובקושי תגובתי"
+
+### What Claude Fixed
+- Compressed all images: 14MB → 1.3MB (sharp, mozjpeg)
+- Halved all animation delays and durations
+- Removed expensive CSS drop-shadow filters
+- Replaced transition-all with specific property transitions
 
 ## Ideas for Future Improvement
 - A/B testing: track conversion rates per path
